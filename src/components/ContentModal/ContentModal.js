@@ -5,6 +5,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import axios from "axios";
 import {
+  API_KEY, // Import the key
   img_500,
   unavailable,
   unavailableLandscape,
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TransitionsModal({ children, media_type, id }) {
+export default function ContentModal({ children, media_type, id }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState();
@@ -48,7 +49,7 @@ export default function TransitionsModal({ children, media_type, id }) {
 
   const fetchData = async () => {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/${media_type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+      `https://api.themoviedb.org/3/${media_type}/${id}?api_key=${API_KEY}&language=en-US`
     );
 
     setContent(data);
@@ -57,7 +58,7 @@ export default function TransitionsModal({ children, media_type, id }) {
 
   const fetchVideo = async () => {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+      `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${API_KEY}&language=en-US`
     );
 
     setVideo(data.results[0]?.key);

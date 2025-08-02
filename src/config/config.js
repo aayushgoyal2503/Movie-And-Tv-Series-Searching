@@ -14,5 +14,5 @@ export const unavailableLandscape =
 export const noPicture =
   "https://upload.wikimedia.org/wikipedia/en/6/60/No_Picture.jpg";
 
-
-  export const API_KEY = "5c99a656210935e18acec1cc94398143";
+// API Key is now read from the environment variable
+export const API_KEY = process.env.REACT_APP_API_KEY;

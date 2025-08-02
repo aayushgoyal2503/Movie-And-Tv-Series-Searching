@@ -1,6 +1,6 @@
 import {
   Button,
-  createMuiTheme,
+  createMuiTheme, // Corrected import
   Tab,
   Tabs,
   TextField,
@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CustomPagination from "../../components/Pagination/CustomPagination";
 import SingleContent from "../../components/SingleContent/SingleContent";
+import { API_KEY } from "../../config/config";
 
 const Search = () => {
   const [type, setType] = useState(0);
@@ -20,7 +21,7 @@ const Search = () => {
   const [content, setContent] = useState([]);
   const [numOfPages, setNumOfPages] = useState();
 
-  const darkTheme = createMuiTheme({
+  const darkTheme = createMuiTheme({ // Corrected function name
     palette: {
       type: "dark",
       primary: {
@@ -30,11 +31,12 @@ const Search = () => {
   });
 
   const fetchSearch = async () => {
+    if (!searchText) {
+      return;
+    }
     try {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/search/${type ? "tv" : "movie"}?api_key=${
-          process.env.REACT_APP_API_KEY
-        }&language=en-US&query=${searchText}&page=${page}&include_adult=false`
+        `https://api.themoviedb.org/3/search/${type ? "tv" : "movie"}?api_key=${API_KEY}&language=en-US&query=${searchText}&page=${page}&include_adult=false`
       );
       setContent(data.results);
       setNumOfPages(data.total_pages);
